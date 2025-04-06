@@ -2,6 +2,8 @@
 
 import { db } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
+import { revalidatePath } from "next/cache";
+import { generateAiInsights } from "./dashboard";
 
 
 
@@ -26,19 +28,16 @@ export async function updateUser(data) {
                 });
 
                 if (!industryInsight) {
-                    industryInsight = await tx.industryInsight.create({
+                    const insights = await generateAiInsights(data.industry);
+
+                    industryInsight = await db.industryInsight.create({
                         data: {
                             industry: data.industry,
-                            salaryRanges: [],
-                            growthRate: 0,
-                            demandLevel: "Medium",
-                            topSkills: [],
-                            marketOutlook: "Neutral",
-                            keyTrends: [],
-                            recommendationSkills: [],
+                            ...insights,
                             nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-                        }
-                    })
+                        },
+                    });
+
                 }
 
 
@@ -56,7 +55,7 @@ export async function updateUser(data) {
                 });
 
 
-                return {updateUser,industryInsight};
+                return { updateUser, industryInsight };
 
 
                 // if industry doesn't exist , create it with default values - will replace it with ai later
@@ -68,13 +67,13 @@ export async function updateUser(data) {
             timeout: 10000,  //default:5000
         }
         );
-
-        return result.user;
+        revalidatePath("/");
+        return { success: true, ...result };
 
 
     } catch (error) {
         console.error("Error updating user and industry:", error.message);
-        throw new Error("Failed to update profile")
+        throw new Error("Failed to update profile" + error.message)
 
     }
 }
@@ -99,16 +98,17 @@ export async function getUserOnboardingStatus() {
                 clerkUserId: userId,
             },
             select: {
-                industry:true,
+                industry: true,
             },
         });
 
 
         return {
-            isOnboarded:!!user?.industry,
+            isOnboarded: !!user?.industry,
+
         }
-     
-        
+
+
     } catch (error) {
         console.error("Error checking onboarding status:", error.message);
         throw new Error("Failed to check onboarding status")

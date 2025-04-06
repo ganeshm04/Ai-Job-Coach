@@ -4,6 +4,7 @@ import Header from "@/components/header";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
+import { Toaster } from "@/components/ui/sonner";
 
 
 const inter = Inter({
@@ -21,13 +22,13 @@ export default function RootLayout({ children }) {
       appearance={{
         baseTheme: dark,
       }}
+      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
     >
       <html lang="en" suppressHydrationWarning>
         <body
           className={`${inter.className}`}
-      suppressHydrationWarning
+          suppressHydrationWarning
         >
-
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
@@ -40,6 +41,7 @@ export default function RootLayout({ children }) {
             <main className="min-h-screen">
               {children}
             </main>
+            <Toaster richColors />
 
             {/* footer */}
             <footer className="bg-muted/50 py-12">

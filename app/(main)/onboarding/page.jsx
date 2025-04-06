@@ -1,4 +1,3 @@
-"use client";
 
 import { getUserOnboardingStatus } from "@/actions/user";
 import { industries } from "@/data/industries";
@@ -12,7 +11,7 @@ const OnboardingPage = async () => {
     const {isOnboarded}= await getUserOnboardingStatus();
 
     if(isOnboarded){
-        redirect('/dashboard');
+        redirect("/dashboard");
     }
     return (
         <main>
