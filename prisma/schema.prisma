@@ -57,24 +57,25 @@ model CoverLetter {
   jobTitle       String
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+  status         String   @default("draft")
   user           User     @relation(fields: [userId], references: [id])
 
   @@index([userId])
 }
 
 model IndustryInsight {
-  id                   String        @id @default(cuid())
-  industry             String        @unique
-  salaryRanges         Json[]
-  growthRate           Float
-  demandLevel          DemandLevel
-  topSkills            String[]
-  marketOutlook        MarketOutlook
-  keyTrends            String[]
-  recommendedSkills    String[]
-  lastUpdated          DateTime      @default(now())
-  nextUpdate           DateTime
-  users                User[]
+  id                String        @id @default(cuid())
+  industry          String        @unique
+  salaryRanges      Json[]
+  growthRate        Float
+  demandLevel       DemandLevel
+  topSkills         String[]
+  marketOutlook     MarketOutlook
+  keyTrends         String[]
+  lastUpdated       DateTime      @default(now())
+  nextUpdate        DateTime
+  recommendedSkills String[]
+  users             User[]
 
   @@index([industry])
 }

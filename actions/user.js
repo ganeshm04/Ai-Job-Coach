@@ -37,9 +37,7 @@ export async function updateUser(data) {
                             nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
                         },
                     });
-
                 }
-
 
                 // update the user
                 const updatedUser = await tx.user.update({
@@ -54,27 +52,18 @@ export async function updateUser(data) {
                     },
                 });
 
-
-                return { updateUser, industryInsight };
-
-
-                // if industry doesn't exist , create it with default values - will replace it with ai later
-
-
-
-
-            }, {
-            timeout: 10000,  //default:5000
-        }
+                return { updatedUser, industryInsight };
+            },
+            {
+                timeout: 10000,
+            }
         );
         revalidatePath("/");
-        return { success: true, ...result };
-
+        return result.user;
 
     } catch (error) {
         console.error("Error updating user and industry:", error.message);
-        throw new Error("Failed to update profile" + error.message)
-
+        throw new Error(`Failed to update profile: ${error.message}`);
     }
 }
 

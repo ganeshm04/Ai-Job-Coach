@@ -20,32 +20,33 @@ import { toast } from "sonner";
 
 const OnboardingForm = ({ industries }) => {
 
-  const [selectedIndustry, setSelectedIndustry] = useState(null);
   const router = useRouter();
+  const [selectedIndustry, setSelectedIndustry] = useState(null);
 
 
-  const { data: updateResult,
+  const {
     loading: updateLoading,
-    fn: updateUserFn } = useFetch(updateUser);
+    fn: updateUserFn,
+     data: updateResult,
+   } = useFetch(updateUser);
 
-  const { register,
+  const { 
+    register,
     handleSubmit,
     formState: { errors },
     setValue,
-    watch
+    watch,
   } = useForm({
     resolver: zodResolver(onboardingSchema)
   });
-
-  const watchIndustry = watch("industry");
-
+  
   const onSubmit = async (values) => {
     try {
       const formattedIndustry = `${values.industry}-${values.subIndustry.
+        
         toLowerCase().
-        replace(/ /g, "-")
-        }`;  //tech-software-development
-
+        replace(/ /g, "-")}`;  //tech-software-development
+      
       await updateUserFn({
         ...values,
         industry: formattedIndustry,
@@ -53,8 +54,9 @@ const OnboardingForm = ({ industries }) => {
     } catch (error) {
       console.log("onboarding error", error);
     }
-
-
+  }
+    
+    
     useEffect(() => {
       if (updateResult?.success && !updateLoading) {
         toast.success("Profile completed successfully");
@@ -62,9 +64,9 @@ const OnboardingForm = ({ industries }) => {
         router.refresh();
       }
     }, [updateResult, updateLoading])
-
-
-  }
+    
+    
+  const watchIndustry = watch("industry");
 
   return (
     <div className="flex items-center justify-center bg-background">

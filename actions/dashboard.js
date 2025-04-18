@@ -56,6 +56,10 @@ export async function getIndustryInsights() {
         },
     });
     if (!user) throw new Error("User Not Found");
+    
+    if (!user.industry) {
+        throw new Error("Please complete your industry information in your profile first");
+    }
 
     if (!user.industryInsight) {
         const insights = await generateAiInsights(user.industry);
@@ -71,8 +75,5 @@ export async function getIndustryInsights() {
         return industryInsight;
     }
 
-
     return user.industryInsight;
-
-
 }
