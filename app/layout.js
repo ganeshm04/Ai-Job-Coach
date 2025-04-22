@@ -45,9 +45,9 @@ export default function RootLayout({ children }) {
 
             {/* footer */}
             <footer className="bg-muted/50 py-12">
-              <div className="container mx-auto px-4 text-gray-200 text-center ">
+              <div className="container mx-auto px-4 text-gray-800 text-center ">
                 <p>
-                  Made with Nextjs
+                  Made By Ganesh M<a href="https://ganeshm04.github.io/ganeshm-portfolio/" className="text-blue-900 text-sm"> [Portfolio]</a>
                 </p>
               </div>
             </footer>
