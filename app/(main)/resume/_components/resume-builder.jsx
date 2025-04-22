@@ -150,7 +150,7 @@ const ResumeBuilder = ({ initialContent }) => {
                 .trim();
 
             console.log(previewContent, formattedContent);
-            // await saveResumeFn(previewContent);
+            await saveResumeFn(previewContent);
         } catch (error) {
             console.error("Save error:", error);
         }
@@ -181,7 +181,7 @@ const ResumeBuilder = ({ initialContent }) => {
 
                         }
                     </Button>
-                    <Button onClick={generatePDF} disabled={isGenerating}>
+                    {/* <Button onClick={generatePDF} disabled={isGenerating}>
                         {isGenerating ? (
                             <>
                                 <Loader2 className='h-4 w-4 animate-spin' />Generating PDF
@@ -191,7 +191,7 @@ const ResumeBuilder = ({ initialContent }) => {
                             Download PDF
                         </>
                         )}
-                    </Button>
+                    </Button> */}
                 </div>
             </div>
             <Tabs value={activeTab} onValueChange={setActiveTab} >

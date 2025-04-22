@@ -10,7 +10,7 @@ const QuizResult = ({ result, hideStartNew = false, onStartNew }) => {
     }
     return (
         <div className='mx-auto'>
-            <h1 className='flex items-center gap-2 text-3xl gradient-title'>
+            <h1 className='flex items-center gap-2 text-3xl gradient-white'>
                 <Trophy className='h-6 w-6 text-yellow-500' />
                 Quiz Results
             </h1>
