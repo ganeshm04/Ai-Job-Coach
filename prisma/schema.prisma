@@ -14,7 +14,7 @@ model User {
   email           String           @unique
   name            String?
   imageUrl        String?
-  industry        String           @unique
+  industry        String?          
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
   bio             String?
@@ -43,7 +43,7 @@ model Assessments {
 model Resume {
   id        String   @id @default(cuid())
   userId    String   @unique
-  content   String
+  content   String   @db.Text
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user      User     @relation(fields: [userId], references: [id])
