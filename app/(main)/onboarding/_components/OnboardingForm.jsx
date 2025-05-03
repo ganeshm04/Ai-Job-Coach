@@ -23,7 +23,8 @@ const OnboardingForm = ({ industries }) => {
   const router = useRouter();
   const [selectedIndustry, setSelectedIndustry] = useState(null);
 
-
+  console.log("in boarding form");
+  
   const {
     loading: updateLoading,
     fn: updateUserFn,
