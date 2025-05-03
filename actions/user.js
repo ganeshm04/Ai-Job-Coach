@@ -71,7 +71,11 @@ export async function updateUser(data) {
 
 export async function getUserOnboardingStatus() {
     const { userId } = await auth();
-    if (!userId) throw new Error("Unauthorized");
+    console.log("Clerk User ID:", userId); 
+    if (!userId) {
+        console.error("Unauthorized: No Clerk User ID found");
+        throw new Error("Unauthorized");
+    }
 
 
     const user = await db.user.findUnique({
@@ -94,7 +98,6 @@ export async function getUserOnboardingStatus() {
 
         return {
             isOnboarded: !!user?.industry,
-
         }
 
 
