@@ -1,4 +1,4 @@
-
+"use client";
 import { getUserOnboardingStatus } from "@/actions/user";
 import { industries } from "@/data/industries";
 import { redirect } from "next/navigation";
